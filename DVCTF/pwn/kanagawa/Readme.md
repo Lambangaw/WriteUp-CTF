@@ -1,9 +1,11 @@
 Tidak banyak deskripsi hanya terdapat attachment file 32 bit-executable dibuktikan dengan :
+\n
 ![](images.png)
+\n
 ![](images2.png)
+\n
 Dari kedua pengecekan diatas ternyata 32 bit, not-striped, no-pie, no-canary, seharusnya challange pwn yang tidak begitu sulit. Dilanjutkan dengan analisis statis menggunakan Ida-pro dan begini hasilnya.
 ![](images3.png)
-Fgets disini bisa saja dieksploitasi karena
 
 Misi kita hanyalah melakukan buffer overflow dan bisa jump ke fungsi 'recovery mode'. ya tinggal melakukan dynamic analisis dengan gdb dan filler buffer pada fgets pertama berapa, ternyata buffer yang dibutuhkan 40 char dan 4 char setelahnya akan digunakakn untuk melakukan jump ke memory dari recovery mode dan 'cat flag.txt'. Kita perlu mengambil address memory di recovery mode dan membaliknya karena ini merupakan 32-bit LSB, dengan mudah dibantu pwntools. Berikut solver yang saya gunakan.
 
